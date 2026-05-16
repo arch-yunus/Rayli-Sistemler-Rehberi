@@ -27,6 +27,17 @@ Raylı sistemler sadece ulaşım değil; enerji verimliliği, sürdürülebilirl
 
 👉 Detaylı analiz ve yol haritası için: [**Küresel Vizyon ve 2053 Stratejisi**](VIZYON_2053.md)
 
+### 🌍 Küresel Raylı Sistem Liderleri
+
+| Ülke / Şirket | Uzmanlık & Başarı |
+| :--- | :--- |
+| **Çin (CRRC)** | Dünyanın en büyük Hızlı Tren ağı (45.000+ km) ve üretim kapasitesi. |
+| **Japonya (Hitachi)** | *Shinkansen* teknolojisi ile saniyelerle ölçülen dakiklik ve güvenlik. |
+| **Almanya (Siemens)** | Avrupa demiryolu standartları (ERTMS) ve dijital sinyalizasyon liderliği. |
+| **Fransa (Alstom)** | TGV teknolojisi ve otonom sürüş sistemlerinde öncü. |
+| **İsviçre (Stadler)** | Dünyanın en entegre ve verimli toplu taşıma işletim sistemi. |
+| **ABD (Wabtec)** | Ağır yük taşımacılığı ve lokomotif teknolojilerinde dünya devi. |
+
 ---
 
 ## 🎓 Akademik Müfredat (4 Yıllık Plan)
