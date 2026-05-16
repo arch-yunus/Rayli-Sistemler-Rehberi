@@ -11,18 +11,21 @@ Bu depo, yüksek hızlı trenlerden (YHT) kentsel metro ağlarına, otonom sinya
 ## 📑 İçindekiler
 
 1. [🚀 Vizyon ve Strateji](#-vizyon-ve-strateji)
-2. [🎓 Akademik Müfredat (4 Yıllık Plan)](#-akademik-müfredat-4-yıllık-plan)
-3. [🛠️ Teknik Modüller ve Uzmanlıklar](#-teknik-modüller-ve-uzmanlıklar)
-4. [💻 Simülasyonlar ve Yazılımlar](#-simülasyonlar-ve-yazılımlar)
-5. [🌐 İnteraktif Dashboard](#-interaktif-dashboard)
-6. [📜 Standartlar ve Sertifikasyon](#-standartlar-ve-sertifikasyon)
-7. [🤝 Katkıda Bulunma ve İletişim](#-katkıda-bulunma-ve-iletişim)
+2. [🌍 Küresel Vizyon (Liderlik Rehberi)](VIZYON_2053.md)
+3. [🎓 Akademik Müfredat (4 Yıllık Plan)](#-akademik-müfredat-4-yıllık-plan)
+4. [🛠️ Teknik Modüller ve Uzmanlıklar](#-teknik-modüller-ve-uzmanlıklar)
+5. [💻 Simülasyonlar ve Yazılımlar](#-simülasyonlar-ve-yazılımlar)
+6. [🌐 İnteraktif Dashboard](#-interaktif-dashboard)
+7. [📜 Standartlar ve Sertifikasyon](#-standartlar-ve-sertifikasyon)
+8. [🤝 Katkıda Bulunma ve İletişim](#-katkıda-bulunma-ve-iletişim)
 
 ---
 
 ## 🚀 Vizyon ve Strateji
 
 Raylı sistemler sadece ulaşım değil; enerji verimliliği, sürdürülebilirlik ve ileri teknolojinin kalbidir. Bu rehber, Türkiye'nin milli teknoloji hamlesi doğrultusunda gelişen demiryolu ekosistemine (Maglev, Hyperloop, Hidrojen Yakıtlı Trenler) adapte olabilen, uluslararası normlara (UIC, EN, TSI) hakim mühendisler yetiştirmeyi hedefler.
+
+👉 Detaylı analiz ve yol haritası için: [**Küresel Vizyon ve 2053 Stratejisi**](VIZYON_2053.md)
 
 ---
 
