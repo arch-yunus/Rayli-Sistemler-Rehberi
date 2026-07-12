@@ -3,78 +3,753 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raylı Sistemler Rehberi | İnteraktif Dashboard</title>
+    <title>Raylı Sistemler Mühendisliği Rehberi | İnteraktif Portal</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@300;500;700;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Chart.js for simulations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <div class="glow-bg"></div>
     <div class="container">
         <header>
-            <h1>RAYLI SİSTEMLER REHBERİ</h1>
-            <p class="subtitle">Geleceğin Ulaşım Teknolojileri İçin Akademik Yol Haritası</p>
+            <div class="logo-area">
+                <span class="train-icon">🚄</span>
+                <h1>RAYLI SİSTEMLER REHBERİ</h1>
+            </div>
+            <p class="subtitle">Geleceğin Ulaşım Teknolojileri İçin Akademik ve Teknik Referans Portalı</p>
+            
+            <!-- Tab Navigation -->
+            <nav class="tab-nav">
+                <button class="tab-btn active" data-tab="curriculum">🎓 Yol Haritası</button>
+                <button class="tab-btn" data-tab="train-sim">⚡ Tren Dinamiği</button>
+                <button class="tab-btn" data-tab="signal-sim">🚥 Anklaşman & Sinyal</button>
+                <button class="tab-btn" data-tab="glossary">📚 Sözlük & Quiz</button>
+                <button class="tab-btn" data-tab="vision">🌍 Vizyon 2053</button>
+            </nav>
         </header>
 
-        <main class="grid">
-            <div class="card">
-                <h2>Yıl 1: Temeller</h2>
-                <p>Mühendislik fiziği, Python programlama ve teknik çizim temelleri ile sektöre ilk adım.</p>
-                <a href="../mufradat/yil-1-temeller/README.md" class="btn">Müfredatı Gör</a>
-                <div class="status-indicator">
-                    <span class="dot"></span> Aktif Modül
+        <main class="main-content">
+            <!-- TAB 1: CURRICULUM -->
+            <section id="curriculum" class="tab-pane active">
+                <div class="section-header">
+                    <h2>🎓 4 Yıllık Akademik Müfredat ve Takip Sistemi</h2>
+                    <p>Raylı Sistemler Mühendisliği alanında uzmanlaşmak için sıfırdan ileri seviyeye ders planı.</p>
                 </div>
-            </div>
-
-            <div class="card">
-                <h2>Yıl 2: Mekanik</h2>
-                <p>Malzeme bilimi, ray-tekerlek etkileşimi ve fren sistemlerinin teorik derinliği.</p>
-                <a href="../mufradat/yil-2-muhendislik/README.md" class="btn">İncele</a>
-                <div class="status-indicator">
-                    <span class="dot"></span> Aktif Modül
+                
+                <div class="progress-container">
+                    <div class="progress-info">
+                        <span>Genel İlerleme Durumu</span>
+                        <span id="progress-percent">0%</span>
+                    </div>
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-bar-fill" id="progress-bar"></div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="card">
-                <h2>Yıl 3: Çekirdek</h2>
-                <p>Boji mimarisi, elektrifikasyon, katener sistemleri ve hat geometrisi uzmanlığı.</p>
-                <a href="../mufradat/yil-3-cekirdek/README.md" class="btn">Detaylar</a>
-                <div class="status-indicator">
-                    <span class="dot"></span> Aktif Modül
+                <div class="accordion-container">
+                    <!-- Yıl 1 -->
+                    <div class="accordion-item">
+                        <div class="accordion-trigger" onclick="toggleAccordion(1)">
+                            <div class="acc-title">
+                                <span class="year-badge">1. YIL</span>
+                                <h3>Mühendislik Temelleri ve Giriş</h3>
+                            </div>
+                            <span class="acc-arrow">▼</span>
+                        </div>
+                        <div class="accordion-content" id="acc-1">
+                            <div class="curriculum-grid">
+                                <div class="curriculum-list">
+                                    <h4>📚 Ana Ders Modülleri</h4>
+                                    <label class="check-item">
+                                        <input type="checkbox" class="curriculum-check" data-id="y1-mat">
+                                        <span class="checkmark"></span>
+                                        <span class="label-text"><strong>Matematik & Fizik:</strong> Kalkülüs, statik ve dinamik prensiplerinin demiryolu mekaniğine entegrasyonu.</span>
+                                    </label>
+                                    <label class="check-item">
+                                        <input type="checkbox" class="curriculum-check" data-id="y1-giris">
+                                        <span class="checkmark"></span>
+                                        <span class="label-text"><strong>Raylı Sistemlere Giriş:</strong> Tramvay, metro, YHT sistem farkları ve temel terminoloji.</span>
+                                    </label>
+                                    <label class="check-item">
+                                        <input type="checkbox" class="curriculum-check" data-id="y1-python">
+                                        <span class="checkmark"></span>
+                                        <span class="label-text"><strong>Algoritma & Programlama:</strong> Python temelleri ile veri yapıları ve mühendislik hesapları.</span>
+                                    </label>
+                                    <label class="check-item">
+                                        <input type="checkbox" class="curriculum-check" data-id="y1-cad">
+                                        <span class="checkmark"></span>
+                                        <span class="label-text"><strong>Teknik Çizim ve CAD:</strong> AutoCAD ile 2B hat planları, SolidWorks ile 3B parça tasarımı.</span>
+                                    </label>
+                                </div>
+                                <div class="curriculum-meta">
+                                    <h4>🛠️ Kaynaklar ve Detaylar</h4>
+                                    <ul>
+                                        <li>📖 UIC Railway Dictionary (Uluslararası Demiryolu Birliği Sözlüğü)</li>
+                                        <li>📖 Temel Fizik - Serway (Mekanik Konuları)</li>
+                                        <li>💻 Jupyter Notebook ile veri analizi uygulamaları</li>
+                                    </ul>
+                                    <a href="../mufradat/yil-1-temeller/README.md" class="card-link">Dökümantasyonu Oku &rarr;</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Yıl 2 -->
+                    <div class="accordion-item">
+                        <div class="accordion-trigger" onclick="toggleAccordion(2)">
+                            <div class="acc-title">
+                                <span class="year-badge">2. YIL</span>
+                                <h3>Disiplinlerarası Mühendislik</h3>
+                            </div>
+                            <span class="acc-arrow">▼</span>
+                        </div>
+                        <div class="accordion-content" id="acc-2">
+                            <div class="curriculum-grid">
+                                <div class="curriculum-list">
+                                    <h4>📚 Ana Ders Modülleri</h4>
+                                    <label class="check-item">
+                                        <input type="checkbox" class="curriculum-check" data-id="y2-malzeme">
+                                        <span class="checkmark"></span>
+                                        <span class="label-text"><strong>Malzeme Bilimi & Metalurji:</strong> Ray çelikleri (Mn alaşımları), ray-tekerlek aşınması ve Hertzian temas gerilmesi.</span>
+                                    </label>
+                                    <label class="check-item">
+                                        <input type="checkbox" class="curriculum-check" data-id="y2-makine">
+                                        <span class="checkmark"></span>
+                                        <span class="label-text"><strong>Elektrik Makineleri & Güç Elektroniği:</strong> Cer motorları (AC/DC) ve invertörlerde PWM hız kontrolü.</span>
+                                    </label>
+                                    <label class="check-item">
+                                        <input type="checkbox" class="curriculum-check" data-id="y2-akiskan">
+                                        <span class="checkmark"></span>
+                                        <span class="label-text"><strong>Akışkanlar & Termodinamik:</strong> Elektro-pnömatik fren sistemleri ve vagon iklimlendirme (HVAC) prensipleri.</span>
+                                    </label>
+                                    <label class="check-item">
+                                        <input type="checkbox" class="curriculum-check" data-id="y2-mukavemet">
+                                        <span class="checkmark"></span>
+                                        <span class="label-text"><strong>Mukavemet & Yapısal Analiz:</strong> Boji şaseleri ve travers yapılarına yönelik gerilme testleri.</span>
+                                    </label>
+                                </div>
+                                <div class="curriculum-meta">
+                                    <h4>🛠️ Kaynaklar ve Detaylar</h4>
+                                    <ul>
+                                        <li>📖 Contact Mechanics - K.L. Johnson (Tekerlek Teması)</li>
+                                        <li>💻 ANSYS veya SolidWorks FEA ile Travers Mukavemet Analizi</li>
+                                        <li>⚙️ Pnömatik devre simülasyon araçları</li>
+                                    </ul>
+                                    <a href="../mufradat/yil-2-muhendislik/README.md" class="card-link">Dökümantasyonu Oku &rarr;</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Yıl 3 -->
+                    <div class="accordion-item">
+                        <div class="accordion-trigger" onclick="toggleAccordion(3)">
+                            <div class="acc-title">
+                                <span class="year-badge">3. YIL</span>
+                                <h3>Çekirdek Demiryolu Teknolojileri</h3>
+                            </div>
+                            <span class="acc-arrow">▼</span>
+                        </div>
+                        <div class="accordion-content" id="acc-3">
+                            <div class="curriculum-grid">
+                                <div class="curriculum-list">
+                                    <h4>📚 Ana Ders Modülleri</h4>
+                                    <label class="check-item">
+                                        <input type="checkbox" class="curriculum-check" data-id="y3-rolling">
+                                        <span class="checkmark"></span>
+                                        <span class="label-text"><strong>Rolling Stock (Çeken/Çekilen Araçlar):</strong> Boji mimarisi, birincil/ikincil süspansiyonlar ve gövde tasarımı.</span>
+                                    </label>
+                                    <label class="check-item">
+                                        <input type="checkbox" class="curriculum-check" data-id="y3-geometri">
+                                        <span class="checkmark"></span>
+                                        <span class="label-text"><strong>Altyapı & Hat Geometrisi:</strong> Kurplar, deversman (superelevation), balastlı/balastsız beton yollar ve makas mekaniği.</span>
+                                    </label>
+                                    <label class="check-item">
+                                        <input type="checkbox" class="curriculum-check" data-id="y3-elek">
+                                        <span class="checkmark"></span>
+                                        <span class="label-text"><strong>Elektrifikasyon & Cer Gücü:</strong> Katener hat tasarımı, trafolar (25kV AC/750V DC) ve rejeneratif frenleme.</span>
+                                    </label>
+                                    <label class="check-item">
+                                        <input type="checkbox" class="curriculum-check" data-id="y3-sinyal">
+                                        <span class="checkmark"></span>
+                                        <span class="label-text"><strong>Sinyalizasyon Temelleri:</strong> Sabit/hareketli blok işletimi, ray devreleri, aks sayıcılar ve sinyal lambaları.</span>
+                                    </label>
+                                </div>
+                                <div class="curriculum-meta">
+                                    <h4>🛠️ Kaynaklar ve Detaylar</h4>
+                                    <ul>
+                                        <li>📖 Railway Engineering - Satish Chandra</li>
+                                        <li>📖 Traction Systems and Electrification - UIC</li>
+                                        <li>💻 Python ile yatay ve düşey kurp geçiş eğrisi hesaplayıcı tasarımı</li>
+                                    </ul>
+                                    <a href="../mufradat/yil-3-cekirdek/README.md" class="card-link">Dökümantasyonu Oku &rarr;</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Yıl 4 -->
+                    <div class="accordion-item">
+                        <div class="accordion-trigger" onclick="toggleAccordion(4)">
+                            <div class="acc-title">
+                                <span class="year-badge">4. YIL</span>
+                                <h3>İleri Sistemler ve Otonomi</h3>
+                            </div>
+                            <span class="acc-arrow">▼</span>
+                        </div>
+                        <div class="accordion-content" id="acc-4">
+                            <div class="curriculum-grid">
+                                <div class="curriculum-list">
+                                    <h4>📚 Ana Ders Modülleri</h4>
+                                    <label class="check-item">
+                                        <input type="checkbox" class="curriculum-check" data-id="y4-ileri-sinyal">
+                                        <span class="checkmark"></span>
+                                        <span class="label-text"><strong>İleri Sinyalizasyon (ERTMS & CBTC):</strong> ETCS L1-L2-L3 seviyeleri, Eurobalise, GSM-R, CBTC (GoA4 Sürücüsüz) mimarisi.</span>
+                                    </label>
+                                    <label class="check-item">
+                                        <input type="checkbox" class="curriculum-check" data-id="y4-rams">
+                                        <span class="checkmark"></span>
+                                        <span class="label-text"><strong>RAMS ve Sistem Emniyeti:</strong> EN 50126/128/129 standartları, SIL seviyeleri, FTA (Hata Ağacı Analizi).</span>
+                                    </label>
+                                    <label class="check-item">
+                                        <input type="checkbox" class="curriculum-check" data-id="y4-dinamik">
+                                        <span class="checkmark"></span>
+                                        <span class="label-text"><strong>Araç Dinamiği & Çoklu Cisim Simülasyonu:</strong> Derayman kriterleri, Sperling konfor indeksi.</span>
+                                    </label>
+                                    <label class="check-item">
+                                        <input type="checkbox" class="curriculum-check" data-id="y4-gelecek">
+                                        <span class="checkmark"></span>
+                                        <span class="label-text"><strong>Gelecek Teknolojileri:</strong> Maglev (Manyetik levitasyon), Hyperloop ve Hidrojen Yakıt Hücreli Lokomotifler.</span>
+                                    </label>
+                                </div>
+                                <div class="curriculum-meta">
+                                    <h4>🛠️ Kaynaklar ve Detaylar</h4>
+                                    <ul>
+                                        <li>📖 EN 50126 Railway Applications - RAMS</li>
+                                        <li>📖 Introduction to ERTMS - ERTMS Users Group</li>
+                                        <li>💻 Bitirme tezi: CBTC veya enerji depolama sistemleri (ESS) optimizasyonu</li>
+                                    </ul>
+                                    <a href="../mufradat/yil-4-ileri-teknoloji/README.md" class="card-link">Dökümantasyonu Oku &rarr;</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </section>
 
-            <div class="card">
-                <h2>Yıl 4: Otonomi</h2>
-                <p>ERTMS, CBTC, Maglev teknolojileri ve RAMS emniyet standartları.</p>
-                <a href="../mufradat/yil-4-ileri-teknoloji/README.md" class="btn">İleri Seviye</a>
-                <div class="status-indicator">
-                    <span class="dot"></span> Aktif Modül
+            <!-- TAB 2: TRAIN MOTION SIMULATOR -->
+            <section id="train-sim" class="tab-pane">
+                <div class="section-header">
+                    <h2>⚡ Canlı Tren Dinamiği ve Sürüş Simülatörü</h2>
+                    <p>Davis Direnç Denklemi ve eğim/kurp parametrelerine bağlı dinamik sürüş fizik simülasyonu.</p>
                 </div>
-            </div>
 
-            <div class="card">
-                <h2>Simülasyonlar</h2>
-                <p>Python tabanlı tren hareket ve sinyalizasyon mantığı araçlarını test edin.</p>
-                <a href="../simulasyonlar/" class="btn">Araçları Gör</a>
-            </div>
+                <div class="simulation-layout">
+                    <!-- Simulator Controls -->
+                    <div class="sim-panel">
+                        <div class="sim-group">
+                            <h3>🚂 Araç & Fizik Ayarları</h3>
+                            <div class="control-row">
+                                <label for="train-type">Tren Modeli</label>
+                                <select id="train-type">
+                                    <option value="metro" selected>Metro Seti (TÜRASAŞ - 120t)</option>
+                                    <option value="yht">Yüksek Hızlı Tren (YHT - 450t)</option>
+                                    <option value="freight">Ağır Yük Treni (Wabtec - 1500t)</option>
+                                    <option value="custom">Özel Tren (Custom)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="control-row">
+                                <label for="sim-mass">Tren Ağırlığı (Ton)</label>
+                                <input type="number" id="sim-mass" value="120" min="20" max="3000">
+                            </div>
 
-            <div class="card">
-                <h2>Küresel Vizyon</h2>
-                <p>Dünya lideri ülkelerin analizi ve Türkiye'nin 2053 liderlik yol haritası.</p>
-                <a href="../VIZYON_2053.md" class="btn">Vizyonu Gör</a>
-            </div>
+                            <div class="control-row">
+                                <label for="sim-traction">Maks. Çekiş Gücü (kN)</label>
+                                <input type="number" id="sim-traction" value="120" min="10" max="1200">
+                            </div>
 
-            <div class="card">
-                <h2>Sözlük</h2>
-                <p>Teknik terimlerin Türkçe-İngilizce karşılıkları ve akademik tanımları.</p>
-                <a href="../GLOSSARY.md" class="btn">Sözlüğe Git</a>
-            </div>
+                            <div class="control-row">
+                                <label for="sim-braking">Maks. Fren Gücü (kN)</label>
+                                <input type="number" id="sim-braking" value="150" min="10" max="1500">
+                            </div>
+                        </div>
+
+                        <div class="sim-group">
+                            <h3>🌍 Hat Profili ve Çevre</h3>
+                            <div class="control-row">
+                                <label for="sim-gradient">Hat Eğimi (‰ Promil)</label>
+                                <div class="slider-val">
+                                    <input type="range" id="sim-gradient" min="-20" max="35" value="5" step="1">
+                                    <span id="val-gradient">‰5</span>
+                                </div>
+                            </div>
+
+                            <div class="control-row">
+                                <label for="sim-curve">Kurp Yarıçapı (m)</label>
+                                <div class="slider-val">
+                                    <input type="range" id="sim-curve" min="0" max="2000" value="0" step="50">
+                                    <span id="val-curve">Düz Hat</span>
+                                </div>
+                            </div>
+
+                            <div class="control-row">
+                                <label for="sim-weather">Hava ve Adhezyon</label>
+                                <select id="sim-weather">
+                                    <option value="dry">Kuru & Temiz Ray (Yüksek Tutunma)</option>
+                                    <option value="wet">Islak & Yağmurlu Ray (Orta Tutunma)</option>
+                                    <option value="icy">Buzlu & Yapraklı Ray (Düşük Tutunma)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="sim-group driving-controls">
+                            <h3>🎮 Manuel Sürüş Kabini</h3>
+                            <div class="throttle-container">
+                                <button class="drive-btn" id="btn-power">⚡ Çekiş (Güç)</button>
+                                <button class="drive-btn active" id="btn-coast">🔄 Boşta (Süzülme)</button>
+                                <button class="drive-btn" id="btn-brake">🛑 Fren</button>
+                                <button class="drive-btn danger" id="btn-emergency">🚨 ACİL FREN</button>
+                            </div>
+
+                            <div class="action-buttons">
+                                <button class="action-btn success" id="btn-sim-start">▶️ Başlat</button>
+                                <button class="action-btn" id="btn-sim-reset">🔄 Sıfırla</button>
+                            </div>
+                            
+                            <div class="control-row checkbox-row">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="sim-auto">
+                                    <span class="slider-toggle"></span>
+                                </label>
+                                <span>🤖 İstasyon Arası Otopilot Senaryosu</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Simulator Live Feedback -->
+                    <div class="sim-display">
+                        <!-- Gauges Grid -->
+                        <div class="gauges-grid">
+                            <div class="gauge-card">
+                                <span class="gauge-label">Hız</span>
+                                <span class="gauge-val" id="gauge-speed">0.0 <small>km/h</small></span>
+                            </div>
+                            <div class="gauge-card">
+                                <span class="gauge-label">İvme</span>
+                                <span class="gauge-val" id="gauge-acc">0.00 <small>m/s²</small></span>
+                            </div>
+                            <div class="gauge-card">
+                                <span class="gauge-label">Mesafe</span>
+                                <span class="gauge-val" id="gauge-dist">0.0 <small>m</small></span>
+                            </div>
+                            <div class="gauge-card">
+                                <span class="gauge-label">Direnç</span>
+                                <span class="gauge-val" id="gauge-res">0.0 <small>kN</small></span>
+                            </div>
+                        </div>
+
+                        <!-- Graphical Canvas Animation of Train -->
+                        <div class="train-track-animation">
+                            <div class="sky-bg">
+                                <div class="clouds"></div>
+                                <div class="tunnel-visual" id="tunnel-overlay"></div>
+                            </div>
+                            <div class="ground-track">
+                                <div class="rail-ties"></div>
+                                <div class="catenary-line"></div>
+                                <div class="station-sign" id="anim-station" style="left: 80%">A İstasyonu</div>
+                                <div class="moving-train" id="anim-train">
+                                    <div class="cabin-front"></div>
+                                    <div class="cabin-body"></div>
+                                    <div class="cabin-body"></div>
+                                    <div class="pantograph"></div>
+                                    <div class="wheels">
+                                        <span class="wheel"></span>
+                                        <span class="wheel"></span>
+                                        <span class="wheel"></span>
+                                        <span class="wheel"></span>
+                                    </div>
+                                    <span class="train-speed-label" id="train-bubble">0 km/h</span>
+                                </div>
+                            </div>
+                            <div class="gradient-infobar" id="gradient-infobar">Eğim: ‰5</div>
+                        </div>
+
+                        <!-- Chart JS Area -->
+                        <div class="chart-container">
+                            <canvas id="motionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: SIGNALING & INTERLOCKING -->
+            <section id="signal-sim" class="tab-pane">
+                <div class="section-header">
+                    <h2>🚥 Sinyalizasyon ve Anklaşman Emniyet Simülatörü</h2>
+                    <p>İstasyon sahasında çelişen rotaların önlenmesi, makas kilitleme ve sinyal kontrol mantığı testi.</p>
+                </div>
+
+                <div class="signal-layout">
+                    <!-- Visual Track Panel -->
+                    <div class="track-panel">
+                        <h3>🗺️ İstasyon Hattı Şematik Planı</h3>
+                        <p class="instruction-text">Hat bloklarına tıklayarak tren varlığını (Doluluk / Meşguliyet) simüle edin. Makasları ancak kilitli değilken değiştirebilirsiniz.</p>
+                        
+                        <div class="track-visualizer">
+                            <svg viewBox="0 0 1000 300" width="100%" height="100%" class="railway-svg">
+                                <!-- Background grid -->
+                                <defs>
+                                    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#00d2ff"/>
+                                        <stop offset="100%" stop-color="#3a7bd5"/>
+                                    </linearGradient>
+                                </defs>
+
+                                <!-- Track lines -->
+                                <!-- Section A (Entrance) -->
+                                <line x1="50" y1="150" x2="300" y2="150" class="track-sec" id="svg-sec-in" />
+                                
+                                <!-- Switch 1 (Turnout Giriş) -->
+                                <line x1="300" y1="150" x2="330" y2="150" class="track-switch-main" />
+                                <line x1="300" y1="150" x2="350" y2="90" class="track-switch-div" />
+
+                                <!-- Section Main (T1 - Upper track) -->
+                                <line x1="330" y1="150" x2="670" y2="150" class="track-sec" id="svg-sec-main" />
+
+                                <!-- Section Loop (T2 - Lower track / Station platform) -->
+                                <line x1="350" y1="90" x2="650" y2="90" class="track-sec" id="svg-sec-loop" />
+
+                                <!-- Switch 2 (Turnout Çıkış) -->
+                                <line x1="670" y1="150" x2="700" y2="150" class="track-switch-main" />
+                                <line x1="650" y1="90" x2="700" y2="150" class="track-switch-div" />
+
+                                <!-- Section B (Exit) -->
+                                <line x1="700" y1="150" x2="950" y2="150" class="track-sec" id="svg-sec-out" />
+
+                                <!-- Signals (Colored circles) -->
+                                <!-- Sinyal Giriş -->
+                                <circle cx="80" cy="120" r="10" class="signal-lamp red" id="sig-in" />
+                                <text x="60" y="100" class="svg-lbl">Sinyal Giriş</text>
+
+                                <!-- Sinyal Çıkış 1 (Ana Hat) -->
+                                <circle cx="640" cy="125" r="8" class="signal-lamp red" id="sig-out-1" />
+                                <text x="620" y="115" class="svg-lbl">Sinyal Çıkış 1</text>
+
+                                <!-- Sinyal Çıkış 2 (İstasyon Yolu) -->
+                                <circle cx="620" cy="65" r="8" class="signal-lamp red" id="sig-out-2" />
+                                <text x="600" y="55" class="svg-lbl">Sinyal Çıkış 2</text>
+
+                                <!-- Labels -->
+                                <text x="150" y="180" class="svg-lbl font-bold" id="lbl-sec-in">GİRİŞ BLOĞU (Boş)</text>
+                                <text x="500" y="180" class="svg-lbl font-bold" id="lbl-sec-main">ANA HAT T1 (Boş)</text>
+                                <text x="500" y="115" class="svg-lbl font-bold" id="lbl-sec-loop">İSTASYON YOLU T2 (Boş)</text>
+                                <text x="800" y="180" class="svg-lbl font-bold" id="lbl-sec-out">ÇIKIŞ BLOĞU (Boş)</text>
+                                
+                                <text x="315" y="185" class="svg-lbl sw-lbl" id="lbl-sw-in">Makas Giriş: DÜZ</text>
+                                <text x="685" y="185" class="svg-lbl sw-lbl" id="lbl-sw-out">Makas Çıkış: DÜZ</text>
+
+                                <!-- Platform visual -->
+                                <rect x="420" y="45" width="160" height="15" fill="#475569" rx="3" />
+                                <text x="470" y="57" fill="#cbd5e1" font-size="10">Yolcu Platformu</text>
+
+                                <!-- Animated train on SVG -->
+                                <rect x="-100" y="142" width="60" height="14" fill="#00d2ff" rx="4" id="svg-train-entity" style="transition: all 0.05s linear; opacity: 0; filter: drop-shadow(0 0 5px #00d2ff);"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Panel Actions & Interlocking logs -->
+                    <div class="control-and-logs">
+                        <div class="sim-group">
+                            <h3>🛰️ Rota Talep Paneli</h3>
+                            <div class="route-buttons">
+                                <button class="route-request-btn" id="btn-route-main">🛣️ Ana Hat Rota Kur</button>
+                                <button class="route-request-btn" id="btn-route-loop">🚉 İstasyon Yolu Rota Kur</button>
+                                <button class="route-request-btn danger" id="btn-route-release" disabled>🔓 Rota Kilitlerini Çöz</button>
+                            </div>
+                            
+                            <div class="train-dispatch">
+                                <button class="action-btn success" id="btn-send-train" disabled>🚂 Simüle Treni Gönder</button>
+                            </div>
+                        </div>
+
+                        <div class="sim-group">
+                            <h3>📊 Anklaşman Durum Tablosu</h3>
+                            <table class="status-table">
+                                <thead>
+                                    <tr>
+                                        <th>Eleman</th>
+                                        <th>Durum</th>
+                                        <th>Kilit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Giriş Bloğu</td>
+                                        <td id="tbl-sec-in-state">BOŞ</td>
+                                        <td id="tbl-sec-in-lock">AÇIK</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ana Hat (T1)</td>
+                                        <td id="tbl-sec-main-state">BOŞ</td>
+                                        <td id="tbl-sec-main-lock">AÇIK</td>
+                                    </tr>
+                                    <tr>
+                                        <td>İstasyon Yolu (T2)</td>
+                                        <td id="tbl-sec-loop-state">BOŞ</td>
+                                        <td id="tbl-sec-loop-lock">AÇIK</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Çıkış Bloğu</td>
+                                        <td id="tbl-sec-out-state">BOŞ</td>
+                                        <td id="tbl-sec-out-lock">AÇIK</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Giriş Makası</td>
+                                        <td id="tbl-sw-in-state">NORMAL</td>
+                                        <td id="tbl-sw-in-lock">AÇIK</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="sim-group logs-group">
+                            <h3>📝 Anklaşman Olay Günlüğü</h3>
+                            <div class="log-window" id="interlocking-logs">
+                                <div class="log-line system">[SİSTEM] Anklaşman sistemi aktif. Emniyet kuralları yükleniyor...</div>
+                                <div class="log-line system">[SİSTEM] Rapor: EN 50129 SIL4 standartlarında sinyaller hazır.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: GLOSSARY & QUIZ -->
+            <section id="glossary" class="tab-pane">
+                <div class="section-layout">
+                    <!-- Technical Glossary -->
+                    <div class="glossary-area">
+                        <div class="section-header">
+                            <h2>📚 Teknik Terimler Sözlüğü</h2>
+                            <p>Raylı sistemler mühendisliği literatüründeki temel kavramlar ve standart tanımları.</p>
+                        </div>
+                        
+                        <div class="search-filter-bar">
+                            <input type="text" id="glossary-search" placeholder="Terim ara (örn: Anklaşman, Boji, RAMS)...">
+                            <div class="filter-tags">
+                                <button class="filter-tag active" data-cat="all">Tümü</button>
+                                <button class="filter-tag" data-cat="traction">Cer & Rolling Stock</button>
+                                <button class="filter-tag" data-cat="signaling">Sinyalizasyon</button>
+                                <button class="filter-tag" data-cat="infrastructure">Altyapı & Hat</button>
+                                <button class="filter-tag" data-cat="safety">RAMS & Emniyet</button>
+                            </div>
+                        </div>
+
+                        <div class="table-scroll">
+                            <table class="glossary-table">
+                                <thead>
+                                    <tr>
+                                        <th>Türkçe Terim</th>
+                                        <th>İngilizce Karşılık</th>
+                                        <th>Kategori</th>
+                                        <th>Açıklama</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="glossary-body">
+                                    <!-- Dynamic rows from app.js -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Quiz -->
+                    <div class="quiz-area">
+                        <div class="sim-group">
+                            <h3>🧠 Raylı Sistemler Mühendisi Mini Quizi</h3>
+                            <p>Bilgilerinizi test edin ve katılım sertifikası kazanın!</p>
+                            
+                            <div class="quiz-container" id="quiz-box">
+                                <div class="quiz-start-screen" id="quiz-start">
+                                    <p>5 sorudan oluşan test, sinyalizasyon, cer dinamikleri ve RAMS konularını içerir.</p>
+                                    <button class="action-btn success" id="btn-start-quiz">Yarışmayı Başlat</button>
+                                </div>
+                                
+                                <div class="quiz-play-screen" id="quiz-play" style="display: none;">
+                                    <div class="quiz-progress">Soru <span id="q-current">1</span>/5</div>
+                                    <h4 class="quiz-question" id="q-text">Soru metni buraya gelecek?</h4>
+                                    <div class="quiz-options">
+                                        <button class="quiz-opt" data-idx="0">A şıkkı</button>
+                                        <button class="quiz-opt" data-idx="1">B şıkkı</button>
+                                        <button class="quiz-opt" data-idx="2">C şıkkı</button>
+                                        <button class="quiz-opt" data-idx="3">D şıkkı</button>
+                                    </div>
+                                </div>
+
+                                <div class="quiz-end-screen" id="quiz-end" style="display: none;">
+                                    <h4>Sonuç</h4>
+                                    <p id="quiz-score-text">Skorunuz hesaplanıyor...</p>
+                                    
+                                    <div class="certificate-badge" id="cert-badge" style="display: none;">
+                                        <div class="badge-icon">🏅</div>
+                                        <h5>RAYLI SİSTEMLER MÜHENDİSLİĞİ REHBERİ</h5>
+                                        <p>Teknik Eğitim Başarı Sertifikası</p>
+                                        <span class="student-name">Sayın Mühendis</span>
+                                    </div>
+                                    
+                                    <button class="action-btn" id="btn-restart-quiz">Yeniden Başlat</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 5: VISION 2053 & CALCULATOR -->
+            <section id="vision" class="tab-pane">
+                <div class="section-header">
+                    <h2>🌍 2053 Küresel Vizyonu ve Karbon Ayak İzi Hesaplayıcı</h2>
+                    <p>Türkiye'nin 2053 hedefleri ve demiryolunun çevre dostu taşımacılık verileriyle simülasyonu.</p>
+                </div>
+
+                <div class="vision-grid">
+                    <!-- Left: 2053 Target cards -->
+                    <div class="targets-area">
+                        <h3>🇹🇷 Türkiye 2053 Demiryolu Hedefleri</h3>
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <span class="m-val">28.590 km</span>
+                                <span class="m-lbl">Hedef Toplam Hat Uzunluğu</span>
+                                <div class="m-bar"><div class="m-fill" style="width: 50%"></div></div>
+                                <span class="m-sub">Şu an: ~14.000 km (%50 tamamlandı)</span>
+                            </div>
+                            <div class="metric-card">
+                                <span class="m-val">%100</span>
+                                <span class="m-lbl">Elektrifikasyon Oranı</span>
+                                <div class="m-bar"><div class="m-fill" style="width: 60%"></div></div>
+                                <span class="m-sub">Ana hatlarda sıfır dizel emisyonu</span>
+                            </div>
+                            <div class="metric-card">
+                                <span class="m-val">%100</span>
+                                <span class="m-lbl">Milli Sinyalizasyon Yaygınlığı</span>
+                                <div class="m-bar"><div class="m-fill" style="width: 45%"></div></div>
+                                <span class="m-sub">TÜBİTAK BİLGEM & TÜRASAŞ projeleri</span>
+                            </div>
+                            <div class="metric-card">
+                                <span class="m-val">%90+</span>
+                                <span class="m-lbl">Milli Araç Yerlilik Payı</span>
+                                <div class="m-bar"><div class="m-fill" style="width: 75%"></div></div>
+                                <span class="m-sub">Milli YHT ve banliyö setleri üretimi</span>
+                            </div>
+                        </div>
+
+                        <div class="vision-quotes">
+                            <blockquote>
+                                "2053 yılında Türkiye, Londra'dan Pekin'e uzanan 'Orta Koridor'un en akıllı ve verimli lojistik hub'ı olacaktır. Yapay zeka tahminleyici bakım sistemleri ve hidrojenli lokomotif filolarıyla sıfır karbonlu ulaştırma hedeflenmektedir."
+                            </blockquote>
+                            <a href="../VIZYON_2053.md" class="card-link btn">Detaylı 2053 Stratejisini İncele &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Right: Calculator -->
+                    <div class="calc-area">
+                        <div class="sim-group">
+                            <h3>🌱 Karbon Emisyonu ve Enerji Tasarrufu Hesaplayıcı</h3>
+                            <p>Yük veya yolcu taşımacılığında demiryolu ulaştırmasının diğer ulaştırma türlerine göre çevre tasarrufunu hesaplayın.</p>
+                            
+                            <div class="control-row">
+                                <label for="calc-type">Taşıma Türü</label>
+                                <select id="calc-type">
+                                    <option value="passenger" selected>👨‍👩‍👧‍👦 Yolcu Taşımacılığı</option>
+                                    <option value="freight">📦 Yük / Kargo Taşımacılığı</option>
+                                </select>
+                            </div>
+
+                            <div class="control-row">
+                                <label for="calc-qty" id="lbl-calc-qty">Yolcu Sayısı (Kişi)</label>
+                                <input type="number" id="calc-qty" value="500" min="1" max="100000">
+                            </div>
+
+                            <div class="control-row">
+                                <label for="calc-dist">Taşıma Mesafesi (km)</label>
+                                <input type="number" id="calc-dist" value="450" min="1" max="20000">
+                            </div>
+
+                            <button class="action-btn success" id="btn-calculate-emissions" style="width: 100%; margin-top: 1rem;">🌳 Tasarrufu Hesapla</button>
+                            
+                            <div class="calc-results" id="calc-results" style="display: none;">
+                                <h4>📊 Toplam CO₂ Salınım Karşılaştırması (kg CO₂)</h4>
+                                <div class="bar-result">
+                                    <span class="bar-lbl">✈️ Havayolu:</span>
+                                    <div class="bar-progress"><div class="bar-fill air" id="res-bar-air" style="width: 100%"></div></div>
+                                    <span class="bar-val" id="res-val-air">12500 kg</span>
+                                </div>
+                                <div class="bar-result">
+                                    <span class="bar-lbl">🚗 Karayolu:</span>
+                                    <div class="bar-progress"><div class="bar-fill road" id="res-bar-road" style="width: 70%"></div></div>
+                                    <span class="bar-val" id="res-val-road">8500 kg</span>
+                                </div>
+                                <div class="bar-result">
+                                    <span class="bar-lbl">🚆 Demiryolu (Elektrik):</span>
+                                    <div class="bar-progress"><div class="bar-fill rail" id="res-bar-rail" style="width: 10%"></div></div>
+                                    <span class="bar-val" id="res-val-rail">1200 kg</span>
+                                </div>
+
+                                <div class="saving-badge">
+                                    <div class="badge-trees">🌳</div>
+                                    <div>
+                                        <h5>Demiryolu ile Sağlanan Tasarruf:</h5>
+                                        <p id="saving-summary">Bu seyahatte demiryolu seçilerek karayoluna göre <strong>7300 kg CO₂</strong> tasarruf sağlandı. Bu, <strong>365 adet ağacın</strong> 1 yılda absorbe edebileceği karbon miktarına eşdeğerdir!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </main>
 
         <footer>
-            <p>&copy; 2026 Raylı Sistemler Rehberi | Açık Kaynaklı Mühendislik Portalı</p>
+            <p>&copy; 2026 Raylı Sistemler Rehberi | Açık Kaynaklı Mühendislik Portalı | MIT Lisansı</p>
         </footer>
+    </div>
+
+    <!-- Modal for Quiz Completion Certificate -->
+    <div class="modal" id="cert-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-cert">&times;</span>
+            <div class="certificate-print" id="print-area">
+                <div class="cert-border">
+                    <div class="cert-header">
+                        <h2>BAŞARI SERTİFİKASI</h2>
+                        <p>RAYLI SİSTEMLER MÜHENDİSLİĞİ REHBERİ EĞİTİMİ</p>
+                    </div>
+                    <div class="cert-body">
+                        <p>İnteraktif portal üzerindeki tüm teorik modülleri ve mühendislik testlerini başarıyla tamamlayıp, yapılan anklaşman ve dinamik testlerinde en yüksek skoru elde eden;</p>
+                        <h3 class="cert-student-name" id="cert-name-input">MÜHENDİS ADAYI</h3>
+                        <p>demiryolu standartları (EN 50126/128/129), CBTC/ERTMS sinyalizasyon kuralları ve Davis tren dinamikleri eğitimini başarıyla tamamlayarak bu sertifikayı almaya hak kazanmıştır.</p>
+                    </div>
+                    <div class="cert-footer">
+                        <div class="sig-box">
+                            <span class="sig-title">Eğitim Koordinatörlüğü</span>
+                            <span class="sig-hand">Raylı Sistemler Rehberi</span>
+                        </div>
+                        <div class="date-box">
+                            <span class="cert-date">13 Temmuz 2026</span>
+                            <span class="cert-id" id="cert-serial">Seri No: RSR-94827-2026</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="action-btn success" onclick="window.print()">🖨️ Sertifikayı Yazdır</button>
+            </div>
+        </div>
     </div>
 
     <script src="app.js"></script>
 </body>
 </html>
+
