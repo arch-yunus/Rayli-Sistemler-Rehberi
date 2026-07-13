@@ -1736,3 +1736,280 @@ p.subtitle {
     background: var(--primary);
 }
 
+/* --- NEW TABS: ENGINEERING TOOLS & NATIONAL PROJECTS --- */
+
+/* Tools Grid layout */
+.tools-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+@media (max-width: 990px) {
+    .tools-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.tool-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.8rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+
+.tool-card:hover {
+    border-color: rgba(0, 210, 255, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.tool-card h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    color: var(--text-main);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.6rem;
+}
+
+.tool-desc {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+}
+
+/* EN 50126 Safety Matrix Table styling */
+.matrix-container {
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.sil-matrix-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.sil-matrix-table th, .sil-matrix-table td {
+    padding: 0.8rem 0.6rem;
+    border: 1px solid var(--border-color);
+}
+
+.sil-matrix-table th {
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.sil-matrix-table td.freq-lbl {
+    font-weight: 600;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--text-dim);
+    font-size: 0.85rem;
+}
+
+.matrix-cell {
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+/* Risk levels color coding */
+.matrix-cell.risk-negligible {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+}
+.matrix-cell.risk-negligible:hover {
+    background: rgba(16, 185, 129, 0.3);
+}
+
+.matrix-cell.risk-tolerable {
+    background: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+}
+.matrix-cell.risk-tolerable:hover {
+    background: rgba(245, 158, 11, 0.3);
+}
+
+.matrix-cell.risk-intolerable {
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+}
+.matrix-cell.risk-intolerable:hover {
+    background: rgba(239, 68, 68, 0.3);
+}
+
+.matrix-cell.selected-cell {
+    outline: 2px solid var(--primary);
+    box-shadow: 0 0 10px var(--primary);
+    transform: scale(1.02);
+    z-index: 5;
+}
+
+/* Safety result panel */
+.safety-result-panel {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px dashed var(--border-color);
+    border-radius: 12px;
+    padding: 1.2rem;
+    margin-top: 1rem;
+}
+
+.result-details h4 {
+    color: var(--primary);
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+}
+
+.res-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.res-row span {
+    color: var(--text-dim);
+}
+
+.res-row strong {
+    color: var(--text-main);
+}
+
+.brake-warning-box, .cant-warning-box {
+    margin-top: 1rem;
+    padding: 0.8rem;
+    border-radius: 8px;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #f87171;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+/* National Projects Catalog Grid layout */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.project-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 1.8rem;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 210, 255, 0.3);
+    box-shadow: 0 10px 25px rgba(0, 210, 255, 0.1);
+}
+
+.project-card h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 0.3rem;
+    margin-top: 1rem;
+}
+
+.proj-sub {
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+.proj-desc {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    height: 4.5rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.project-badge {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+}
+
+.status-production {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.status-active {
+    background: rgba(0, 210, 255, 0.15);
+    color: #00d2ff;
+    border: 1px solid rgba(0, 210, 255, 0.3);
+}
+
+.status-testing {
+    background: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.status-delivered {
+    background: rgba(139, 92, 246, 0.15);
+    color: #a78bfa;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.proj-specs {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.spec-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+}
+
+.spec-item span {
+    color: var(--text-dim);
+}
+
+.spec-item strong {
+    color: var(--text-main);
+}
+
+.highlight-percent {
+    color: var(--accent) !important;
+    text-shadow: 0 0 5px rgba(16, 185, 129, 0.3);
+}
+

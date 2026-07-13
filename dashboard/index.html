@@ -26,6 +26,8 @@
                 <button class="tab-btn" data-tab="signal-sim">🚥 Anklaşman & Sinyal</button>
                 <button class="tab-btn" data-tab="glossary">📚 Sözlük & Quiz</button>
                 <button class="tab-btn" data-tab="vision">🌍 Vizyon 2053</button>
+                <button class="tab-btn" data-tab="eng-tools">🔧 Mühendislik Araçları</button>
+                <button class="tab-btn" data-tab="national-projects">🚆 Milli Projeler</button>
             </nav>
         </header>
 
@@ -705,6 +707,250 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 6: ENGINEERING TOOLS -->
+            <section id="eng-tools" class="tab-pane">
+                <div class="section-header">
+                    <h2>🔧 Mühendislik Hesaplama Araçları ve Emniyet Matrisi</h2>
+                    <p>Uluslararası demiryolu standartları (EN 50126/EN 50129) ve UIC fiziksel formüllerine dayalı interaktif mühendislik hesaplayıcıları.</p>
+                </div>
+
+                <div class="tools-grid">
+                    <!-- EN 50126 SIL Matrix Card -->
+                    <div class="tool-card safety-matrix-card">
+                        <h3>🛡️ CENELEC EN 50126 Risk ve SIL Matrisi</h3>
+                        <p class="tool-desc">Tehlikenin ciddiyetini ve sıklığını seçerek risk kategorisini ve gerekli SIL seviyesini belirleyin.</p>
+                        
+                        <div class="matrix-container">
+                            <table class="sil-matrix-table">
+                                <thead>
+                                    <tr>
+                                        <th>Sıklık / Ciddiyet</th>
+                                        <th title="Hayati tehlike veya kalıcı hasar yok">Önemsiz (Insignificant)</th>
+                                        <th title="Küçük yaralanmalar veya hafif sistem hasarı">Kritik Olmayan (Marginal)</th>
+                                        <th title="Ağır yaralanmalar veya büyük sistem hasarı">Kritik (Critical)</th>
+                                        <th title="Birden fazla ölüm veya tamamen sistem kaybı">Katastrofik (Catastrophic)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-freq="frequent">
+                                        <td class="freq-lbl" title="Sürekli gerçekleşir (Sık)">Sık (Frequent)</td>
+                                        <td class="matrix-cell risk-tolerable" data-freq="frequent" data-sev="insignificant">Non-Safety</td>
+                                        <td class="matrix-cell risk-intolerable" data-freq="frequent" data-sev="marginal">SIL 2</td>
+                                        <td class="matrix-cell risk-intolerable" data-freq="frequent" data-sev="critical">SIL 4</td>
+                                        <td class="matrix-cell risk-intolerable" data-freq="frequent" data-sev="catastrophic">SIL 4</td>
+                                    </tr>
+                                    <tr data-freq="probable">
+                                        <td class="freq-lbl" title="Sıkça gerçekleşir (Olası)">Olası (Probable)</td>
+                                        <td class="matrix-cell risk-tolerable" data-freq="probable" data-sev="insignificant">Non-Safety</td>
+                                        <td class="matrix-cell risk-intolerable" data-freq="probable" data-sev="marginal">SIL 2</td>
+                                        <td class="matrix-cell risk-intolerable" data-freq="probable" data-sev="critical">SIL 4</td>
+                                        <td class="matrix-cell risk-intolerable" data-freq="probable" data-sev="catastrophic">SIL 4</td>
+                                    </tr>
+                                    <tr data-freq="occasional">
+                                        <td class="freq-lbl" title="Ara sıra gerçekleşir">Ara Sıra (Occasional)</td>
+                                        <td class="matrix-cell risk-negligible" data-freq="occasional" data-sev="insignificant">Non-Safety</td>
+                                        <td class="matrix-cell risk-tolerable" data-freq="occasional" data-sev="marginal">SIL 1</td>
+                                        <td class="matrix-cell risk-intolerable" data-freq="occasional" data-sev="critical">SIL 3</td>
+                                        <td class="matrix-cell risk-intolerable" data-freq="occasional" data-sev="catastrophic">SIL 4</td>
+                                    </tr>
+                                    <tr data-freq="remote">
+                                        <td class="freq-lbl" title="Nadiren gerçekleşir (Uzak)">Uzak (Remote)</td>
+                                        <td class="matrix-cell risk-negligible" data-freq="remote" data-sev="insignificant">Non-Safety</td>
+                                        <td class="matrix-cell risk-tolerable" data-freq="remote" data-sev="marginal">SIL 1</td>
+                                        <td class="matrix-cell risk-tolerable" data-freq="remote" data-sev="critical">SIL 2</td>
+                                        <td class="matrix-cell risk-intolerable" data-freq="remote" data-sev="catastrophic">SIL 4</td>
+                                    </tr>
+                                    <tr data-freq="improbable">
+                                        <td class="freq-lbl" title="Beklenmeyen durum">Beklenmeyen (Improbable)</td>
+                                        <td class="matrix-cell risk-negligible" data-freq="improbable" data-sev="insignificant">Non-Safety</td>
+                                        <td class="matrix-cell risk-negligible" data-freq="improbable" data-sev="marginal">Non-Safety</td>
+                                        <td class="matrix-cell risk-tolerable" data-freq="improbable" data-sev="critical">SIL 1</td>
+                                        <td class="matrix-cell risk-tolerable" data-freq="improbable" data-sev="catastrophic">SIL 3</td>
+                                    </tr>
+                                    <tr data-freq="incredible">
+                                        <td class="freq-lbl" title="Neredeyse imkansız (İnanılmaz)">İnanılmaz (Incredible)</td>
+                                        <td class="matrix-cell risk-negligible" data-freq="incredible" data-sev="insignificant">Non-Safety</td>
+                                        <td class="matrix-cell risk-negligible" data-freq="incredible" data-sev="marginal">Non-Safety</td>
+                                        <td class="matrix-cell risk-negligible" data-freq="incredible" data-sev="critical">SIL 1</td>
+                                        <td class="matrix-cell risk-tolerable" data-freq="incredible" data-sev="catastrophic">SIL 2</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="safety-result-panel" id="safety-result">
+                            <p class="instruction-text">Detayları görmek için matris üzerindeki bir hücreye tıklayın.</p>
+                            <div class="result-details" style="display: none;">
+                                <h4>Matris Analiz Sonucu:</h4>
+                                <div class="res-row"><span>Risk Kategorisi:</span> <strong id="safety-risk-cat">-</strong></div>
+                                <div class="res-row"><span>SIL Gereksinimi:</span> <strong id="safety-sil-level">-</strong></div>
+                                <div class="res-row"><span>THR (Tehlike Başına Hata Limiti):</span> <strong id="safety-thr-val">-</strong></div>
+                                <div class="res-row"><span>Tasarım Standardı:</span> <span id="safety-std">-</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Calculators Column -->
+                    <div class="calculators-column">
+                        <!-- UIC Braking Distance Calculator -->
+                        <div class="tool-card">
+                            <h3>🛑 UIC Fren Mesafesi Hesaplayıcı</h3>
+                            <p class="tool-desc">Hız, tren kütlesi, fren kuvveti ve hava koşullarına göre teorik durma mesafesini analiz edin.</p>
+                            
+                            <div class="control-row">
+                                <label for="calc-brake-speed">Hız (km/h)</label>
+                                <div class="slider-val">
+                                    <input type="range" id="calc-brake-speed" min="10" max="350" value="120" step="10">
+                                    <span id="val-brake-speed">120 km/h</span>
+                                </div>
+                            </div>
+                            
+                            <div class="control-row">
+                                <label for="calc-brake-mass">Tren Kütlesi (Ton)</label>
+                                <input type="number" id="calc-brake-mass" value="150" min="20" max="3000">
+                            </div>
+
+                            <div class="control-row">
+                                <label for="calc-brake-force">Maks. Fren Kuvveti (kN)</label>
+                                <input type="number" id="calc-brake-force" value="180" min="10" max="2000">
+                            </div>
+
+                            <div class="control-row">
+                                <label for="calc-brake-gradient">Hat Eğimi (‰ Promil)</label>
+                                <div class="slider-val">
+                                    <input type="range" id="calc-brake-gradient" min="-30" max="30" value="0" step="1">
+                                    <span id="val-brake-gradient">‰0 (Düz)</span>
+                                </div>
+                            </div>
+
+                            <div class="control-row">
+                                <label for="calc-brake-weather">Hava ve Adhezyon</label>
+                                <select id="calc-brake-weather">
+                                    <option value="dry" selected>Kuru Ray (Adhezyon: 0.25)</option>
+                                    <option value="wet">Islak Ray (Adhezyon: 0.15)</option>
+                                    <option value="icy">Buzlu Ray (Adhezyon: 0.05)</option>
+                                </select>
+                            </div>
+
+                            <button class="action-btn success" id="btn-calculate-braking" style="width: 100%; margin-top: 1rem;">🛑 Duruş Analizi Yap</button>
+
+                            <div class="calc-results" id="braking-results" style="display: none;">
+                                <div class="res-row"><span>Reaksiyon Mesafesi (1.5 sn):</span> <strong id="res-brake-react">- m</strong></div>
+                                <div class="res-row"><span>Net Frenleme Mesafesi:</span> <strong id="res-brake-pure">- m</strong></div>
+                                <div class="res-row"><span>Toplam Durma Mesafesi:</span> <strong id="res-brake-total" class="text-danger">- m</strong></div>
+                                <div class="res-row"><span>Yavaşlama İvmesi:</span> <strong id="res-brake-decel">- m/s²</strong></div>
+                                <div class="brake-warning-box" id="brake-adhesion-warning" style="display: none;">
+                                    ⚠️ <strong>ADHEZYON LİMİTİ AŞILDI:</strong> Tekerleklerin rayda kızaklamasını önlemek için fren gücü otomatik olarak sınırlandırıldı! (Kızaklama Önleyici / WSP aktif).
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cant (Deversman) Calculator -->
+                        <div class="tool-card">
+                            <h3>📐 Kurp Deversman (Cant) Hesaplayıcı</h3>
+                            <p class="tool-desc">Viraj yarıçapı ve tasarım hızına göre hat geometrisi için gerekli denge deversmanını ($D_e = 11.8 \frac{v^2}{R}$) hesaplayın.</p>
+
+                            <div class="control-row">
+                                <label for="calc-cant-radius">Kurp Yarıçapı (m)</label>
+                                <div class="slider-val">
+                                    <input type="range" id="calc-cant-radius" min="150" max="3000" value="800" step="50">
+                                    <span id="val-cant-radius">800 m</span>
+                                </div>
+                            </div>
+
+                            <div class="control-row">
+                                <label for="calc-cant-speed">Tasarım Geçiş Hızı (km/h)</label>
+                                <div class="slider-val">
+                                    <input type="range" id="calc-cant-speed" min="20" max="300" value="100" step="10">
+                                    <span id="val-cant-speed">100 km/h</span>
+                                </div>
+                            </div>
+
+                            <button class="action-btn success" id="btn-calculate-cant" style="width: 100%; margin-top: 1rem;">📐 Geometri Hesapla</button>
+
+                            <div class="calc-results" id="cant-results" style="display: none;">
+                                <div class="res-row"><span>Denge Deversmanı (Dₑ):</span> <strong id="res-cant-eq">- mm</strong></div>
+                                <div class="res-row"><span>Önerilen Pratik Deversman:</span> <strong id="res-cant-rec">- mm</strong></div>
+                                <div class="res-row"><span>Durum Değerlendirmesi:</span> <strong id="res-cant-status">-</strong></div>
+                                <div class="cant-warning-box" id="cant-limit-warning" style="display: none;">
+                                    🚨 <strong>LİMİT AŞILDI:</strong> Hesaplanan deversman standart maksimum limiti ($150\text{ mm}$) aşmaktadır! Lütfen kurp yarıçapını artırın veya hızı düşürün.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 7: NATIONAL PROJECTS -->
+            <section id="national-projects" class="tab-pane">
+                <div class="section-header">
+                    <h2>🚆 Milli Raylı Sistem Projeleri Kataloğu</h2>
+                    <p>Türkiye'nin yerli mühendislik imkanlarıyla geliştirilen ve 2053 vizyonunun temelini oluşturan lokomotif, YHT ve metro projeleri.</p>
+                </div>
+
+                <div class="projects-grid">
+                    <!-- Project 1 -->
+                    <div class="project-card">
+                        <div class="project-badge status-production">SERİ ÜRETİM</div>
+                        <h3>E80000 Milli YHT Seti</h3>
+                        <p class="proj-sub">TÜRASAŞ Yüksek Hızlı Tren</p>
+                        <p class="proj-desc">Türkiye'nin şehirlerarası yüksek hızlı hatlarında hizmet verecek, aerodinamik gövde ve yerli cer bileşenleriyle tasarlanan ilk yerli YHT projesi.</p>
+                        <div class="proj-specs">
+                            <div class="spec-item"><span>Maks. Hız:</span> <strong>250 km/h</strong></div>
+                            <div class="spec-item"><span>Hat Gerilimi:</span> <strong>25 kV AC</strong></div>
+                            <div class="spec-item"><span>Cer Gücü:</span> <strong>8000 kW (8 MW)</strong></div>
+                            <div class="spec-item"><span>Sinyalizasyon:</span> <strong>ERTMS L2 / ETCS</strong></div>
+                            <div class="spec-item"><span>Yerlilik Payı:</span> <strong class="highlight-percent">%75+</strong></div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="project-card">
+                        <div class="project-badge status-active">RAYLARDA (TSI)</div>
+                        <h3>E50000 Milli Elektrikli Tren</h3>
+                        <p class="proj-sub">Yeni Sakarya Bölgesel Tren</p>
+                        <p class="proj-desc">TÜRASAŞ tarafından geliştirilen, alüminyum ekstrüzyon gövdeye sahip, TSI sertifikalı ve Aselsan cer kontrollü elektrikli tren seti.</p>
+                        <div class="proj-specs">
+                            <div class="spec-item"><span>Maks. Hız:</span> <strong>160 km/h</strong></div>
+                            <div class="spec-item"><span>Hat Gerilimi:</span> <strong>25 kV AC</strong></div>
+                            <div class="spec-item"><span>Gövde Yapısı:</span> <strong>Alüminyum Alaşım</strong></div>
+                            <div class="spec-item"><span>Cer Motoru:</span> <strong>Aselsan PWM Evirici</strong></div>
+                            <div class="spec-item"><span>Yerlilik Payı:</span> <strong class="highlight-percent">%80+</strong></div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="project-card">
+                        <div class="project-badge status-testing">TEST AŞAMASINDA</div>
+                        <h3>E32000 Milli Banliyö Seti</h3>
+                        <p class="proj-sub">TÜRASAŞ Kent İçi Banliyö</p>
+                        <p class="proj-desc">Marmaray, Gaziray ve diğer büyükşehirlerin kent içi banliyö ağlarında yüksek ivmelenme ve dur-kalk sıklığı için optimize edilmiş vagon setleri.</p>
+                        <div class="proj-specs">
+                            <div class="spec-item"><span>Maks. Hız:</span> <strong>120 km/h</strong></div>
+                            <div class="spec-item"><span>Hat Gerilimi:</span> <strong>25 kV AC</strong></div>
+                            <div class="spec-item"><span>Kapasite:</span> <strong>1020 Yolcu</strong></div>
+                            <div class="spec-item"><span>İvmelenme:</span> <strong>1.1 m/s²</strong></div>
+                            <div class="spec-item"><span>Yerlilik Payı:</span> <strong class="highlight-percent">%70+</strong></div>
+                        </div>
+                    </div>
+
+                    <!-- Project 4 -->
+                    <div class="project-card">
+                        <div class="project-badge status-delivered">TESLİM EDİLDİ</div>
+                        <h3>Gebze-Darıca Sürücüsüz Metro</h3>
+                        <p class="proj-sub">TÜRASAŞ GoA4 Metro</p>
+                        <p class="proj-desc">Gebze-Darıca metro hattında çalışacak, tam otonom (GoA4) sürücüsüz sürüş bilgisayarı ve yerli Aselsan CBTC sinyalizasyonuna sahip araç seti.</p>
+                        <div class="proj-specs">
+                            <div class="spec-item"><span>Maks. Hız:</span> <strong>80 km/h</strong></div>
+                            <div class="spec-item"><span>Hat Gerilimi:</span> <strong>1500 V DC</strong></div>
+                            <div class="spec-item"><span>Otonomi Seviyesi:</span> <strong>GoA4 (Tam Otonom)</strong></div>
+                            <div class="spec-item"><span>Haberleşme:</span> <strong>CBTC Wi-Fi Mimarisi</strong></div>
+                            <div class="spec-item"><span>Yerlilik Payı:</span> <strong class="highlight-percent">%60+</strong></div>
                         </div>
                     </div>
                 </div>

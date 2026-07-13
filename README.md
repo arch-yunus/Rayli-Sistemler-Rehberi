@@ -76,8 +76,16 @@ Rehber içerisinde pratik uygulama için geliştirilen araçlar:
 
 ## 🌐 İnteraktif Dashboard
 
-Projeyi daha görsel bir şekilde deneyimlemek ve müfredat akışını takip etmek için geliştirdiğimiz web arayüzüne göz atın:
-👉 [**Rehber Dashboard**](dashboard/index.md) (Yerel olarak `dashboard/index.html` üzerinden erişilebilir).
+Projeyi daha görsel bir şekilde deneyimlemek, müfredat akışını takip etmek ve mühendislik hesaplamaları yapmak için geliştirdiğimiz web arayüzüne göz atın:
+👉 [**Rehber Dashboard**](dashboard/index.html) üzerinden erişilebilir.
+
+### 🌟 Dashboard Özellikleri:
+1.  **Yol Haritası Takip Sistemi:** 4 yıllık müfredatı takip edip ilerlemenizi tarayıcınıza kaydedebilirsiniz.
+2.  **Tren Dinamiği Simülatörü:** Davis Direnç Denklemi ve Cer Gücü Eğrisi (Traction Curve) ile gerçekçi sürüş fiziği testi.
+3.  **Anklaşman & Sinyal Simülatörü:** EN 50129 SIL4 standartlarında hat kilitleri, makas yönleri ve sinyal renkleri kontrolü.
+4.  **Mühendislik Araçları:** CENELEC EN 50126 SIL/Risk Matrisi, UIC Acil Fren Mesafesi ve Viraj Deversmanı (Cant) hesaplayıcıları.
+5.  **Milli Projeler Kataloğu:** Türkiye'nin yerli mühendislik projeleri (Milli YHT, E50000, Gebze GoA4 Sürücüsüz Metro) teknik verileri.
+6.  **Sözlük & Mini Quiz:** Terimler sözlüğü ve 5 soruluk başarı quizi (Sertifika onaylı).
 
 ---
 

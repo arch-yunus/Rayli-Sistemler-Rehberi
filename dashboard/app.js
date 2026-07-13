@@ -276,7 +276,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // 5. Uygulanan Kuvvet
         let appliedForce = 0.0;
         if (drivingMode === 'power') {
-            appliedForce = Math.min(maxTraction, adhesionLimitForce);
+            const vBase = 15.0; // m/s (54 km/h)
+            const vCurrent = Math.max(0.1, currentSpeed);
+            let availableTraction = maxTraction;
+            if (vCurrent > vBase) {
+                availableTraction = (maxTraction * vBase) / vCurrent;
+            }
+            appliedForce = Math.min(availableTraction, adhesionLimitForce);
         } else if (drivingMode === 'coast') {
             appliedForce = 0.0;
         } else if (drivingMode === 'brake') {
@@ -1076,6 +1082,188 @@ document.addEventListener('DOMContentLoaded', () => {
 
         calcResultsDiv.style.display = 'block';
     });
+
+    // --- 8. EN 50126 SIL VE RISK MATRİSİ ---
+    const matrixCells = document.querySelectorAll('.sil-matrix-table .matrix-cell');
+    const safetyResultDiv = document.querySelector('#safety-result .result-details');
+    const safetyInstruction = document.querySelector('#safety-result .instruction-text');
+    
+    const riskCategories = {
+        'risk-negligible': 'Negligible (İhmal Edilebilir Düzey)',
+        'risk-tolerable': 'Tolerable (Kabul Edilebilir - ALARP ile denetlenmeli)',
+        'risk-intolerable': 'Intolerable (Kabul Edilemez - Emniyet Önlemi Şart!)'
+    };
+
+    const thrValues = {
+        'Non-Safety': 'Emniyet İlişkisiz (Limit Yok)',
+        'SIL 1': '10⁻⁶ ila 10⁻⁵ /saat (Sistem Tehlikeli Hata Limiti - THR)',
+        'SIL 2': '10⁻⁷ ila 10⁻⁶ /saat (Sistem Tehlikeli Hata Limiti - THR)',
+        'SIL 3': '10⁻⁸ ila 10⁻⁷ /saat (Sistem Tehlikeli Hata Limiti - THR)',
+        'SIL 4': '10⁻⁹ ila 10⁻⁸ /saat (Sistem Tehlikeli Hata Limiti - En Sıkı Havacılık/Demiryolu Seviyesi)'
+    };
+
+    matrixCells.forEach(cell => {
+        cell.addEventListener('click', () => {
+            // Hücrelerdeki selected-cell sınıfını temizle
+            matrixCells.forEach(c => c.classList.remove('selected-cell'));
+            cell.classList.add('selected-cell');
+
+            const freq = cell.getAttribute('data-freq');
+            const sev = cell.getAttribute('data-sev');
+            const sil = cell.textContent.trim();
+            
+            // Risk kategorisini rengine göre belirle
+            let riskCat = riskCategories['risk-negligible'];
+            if (cell.classList.contains('risk-tolerable')) riskCat = riskCategories['risk-tolerable'];
+            if (cell.classList.contains('risk-intolerable')) riskCat = riskCategories['risk-intolerable'];
+
+            document.getElementById('safety-risk-cat').innerText = riskCat;
+            document.getElementById('safety-sil-level').innerText = sil;
+            document.getElementById('safety-thr-val').innerText = thrValues[sil] || '-';
+            
+            let stdText = 'EN 50126 & EN 50128 (Yazılım) / EN 50129 (Donanım)';
+            if (sil === 'Non-Safety') stdText = 'Standart Endüstriyel Kalite Standartları';
+            document.getElementById('safety-std').innerText = stdText;
+
+            if (safetyInstruction) safetyInstruction.style.display = 'none';
+            if (safetyResultDiv) safetyResultDiv.style.display = 'block';
+        });
+    });
+
+    // --- 9. UIC FREN MESAFESİ HESAPLAYICI ---
+    const brakeSpeedInput = document.getElementById('calc-brake-speed');
+    const brakeSpeedVal = document.getElementById('val-brake-speed');
+    const brakeMassInput = document.getElementById('calc-brake-mass');
+    const brakeForceInput = document.getElementById('calc-brake-force');
+    const brakeGradientInput = document.getElementById('calc-brake-gradient');
+    const brakeGradientVal = document.getElementById('val-brake-gradient');
+    const brakeWeatherSelect = document.getElementById('calc-brake-weather');
+    const btnCalcBraking = document.getElementById('btn-calculate-braking');
+    const brakingResultsDiv = document.getElementById('braking-results');
+    const brakeAdhesionWarning = document.getElementById('brake-adhesion-warning');
+
+    if (brakeSpeedInput) {
+        brakeSpeedInput.addEventListener('input', () => {
+            if (brakeSpeedVal) brakeSpeedVal.innerText = `${brakeSpeedInput.value} km/h`;
+        });
+    }
+
+    if (brakeGradientInput) {
+        brakeGradientInput.addEventListener('input', () => {
+            const val = parseInt(brakeGradientInput.value);
+            if (brakeGradientVal) {
+                brakeGradientVal.innerText = val === 0 ? '‰0 (Düz)' : (val > 0 ? `‰${val} Rampa Yukarı` : `-‰${Math.abs(val)} İniş`);
+            }
+        });
+    }
+
+    if (btnCalcBraking) {
+        btnCalcBraking.addEventListener('click', () => {
+            const vKmh = parseFloat(brakeSpeedInput.value);
+            const mass = parseFloat(brakeMassInput.value) * 1000; // kg
+            const force = parseFloat(brakeForceInput.value) * 1000; // N
+            const gradient = parseFloat(brakeGradientInput.value); // promil
+            const weather = brakeWeatherSelect.value;
+
+            const vMs = vKmh / 3.6;
+            
+            // Adhezyon katsayısı
+            let mu = 0.25;
+            if (weather === 'wet') mu = 0.15;
+            if (weather === 'icy') mu = 0.05;
+
+            const adhesionLimit = mass * 9.81 * mu; // N
+
+            // Eğer fren kuvveti adhezyonu aşıyorsa sınırlandır
+            let appliedBrakeForce = force;
+            if (force > adhesionLimit) {
+                appliedBrakeForce = adhesionLimit;
+                if (brakeAdhesionWarning) brakeAdhesionWarning.style.display = 'block';
+            } else {
+                if (brakeAdhesionWarning) brakeAdhesionWarning.style.display = 'none';
+            }
+
+            // Direnç kuvveti (Ortalama hız için basitleştirilmiş Davis)
+            const vAvg = vMs / 2;
+            const davis_A = 6.4 * (mass / 1000) * 0.001 * 9.81;
+            const davis_B = 0.18 * (mass / 1000) * 0.001 * 9.81;
+            const davis_C = 0.35 * 11.0;
+            const r_davis = davis_A + (davis_B * vAvg) + (davis_C * (vAvg ** 2));
+
+            // Eğim direnci
+            const r_grade = mass * 9.81 * (gradient / 1000.0);
+
+            // Net yavaşlama kuvveti (Durdurmaya çalıştığı için fren + direnç yerçekimiyle birleşir)
+            const netDecelForce = appliedBrakeForce + r_davis + r_grade;
+            
+            let decel = netDecelForce / mass;
+            if (decel < 0.1) decel = 0.1; // minimum yavaşlama
+
+            const brakingDist = (vMs ** 2) / (2 * decel);
+            const reactionTime = 1.5; // sn
+            const reactionDist = vMs * reactionTime;
+            const totalDist = reactionDist + brakingDist;
+
+            document.getElementById('res-brake-react').innerText = `${Math.round(reactionDist)} m`;
+            document.getElementById('res-brake-pure').innerText = `${Math.round(brakingDist)} m`;
+            document.getElementById('res-brake-total').innerText = `${Math.round(totalDist)} m`;
+            document.getElementById('res-brake-decel').innerText = `${decel.toFixed(2)} m/s²`;
+
+            if (brakingResultsDiv) brakingResultsDiv.style.display = 'block';
+        });
+    }
+
+    // --- 10. DEVERSMAN (CANT) HESAPLAYICI ---
+    const cantRadiusInput = document.getElementById('calc-cant-radius');
+    const cantRadiusVal = document.getElementById('val-cant-radius');
+    const cantSpeedInput = document.getElementById('calc-cant-speed');
+    const cantSpeedVal = document.getElementById('val-cant-speed');
+    const btnCalcCant = document.getElementById('btn-calculate-cant');
+    const cantResultsDiv = document.getElementById('cant-results');
+    const cantLimitWarning = document.getElementById('cant-limit-warning');
+
+    if (cantRadiusInput) {
+        cantRadiusInput.addEventListener('input', () => {
+            if (cantRadiusVal) cantRadiusVal.innerText = `${cantRadiusInput.value} m`;
+        });
+    }
+
+    if (cantSpeedInput) {
+        cantSpeedInput.addEventListener('input', () => {
+            if (cantSpeedVal) cantSpeedVal.innerText = `${cantSpeedInput.value} km/h`;
+        });
+    }
+
+    if (btnCalcCant) {
+        btnCalcCant.addEventListener('click', () => {
+            const R = parseFloat(cantRadiusInput.value);
+            const V = parseFloat(cantSpeedInput.value);
+
+            // Denge Deversmanı Formülü (G = 1435mm için standart formül: D = 11.8 * V^2 / R)
+            const eqCant = 11.8 * (V ** 2) / R; // mm
+            
+            // Önerilen pratik deversman (Genelde denge deversmanının 2/3'ü civarı alınır veya tolerans eklenir)
+            let recCant = eqCant * 0.7; // pratik seçim
+            if (recCant > 150) recCant = 150; // max sınır
+            if (recCant < 0) recCant = 0;
+
+            document.getElementById('res-cant-eq').innerText = `${Math.round(eqCant)} mm`;
+            document.getElementById('res-cant-rec').innerText = `${Math.round(recCant)} mm`;
+
+            const statusEl = document.getElementById('res-cant-status');
+            if (eqCant > 150) {
+                statusEl.innerText = '⚠️ Güvenlik Sınırı Dışında';
+                statusEl.className = 'text-danger';
+                if (cantLimitWarning) cantLimitWarning.style.display = 'block';
+            } else {
+                statusEl.innerText = '✅ Emniyetli Geometri';
+                statusEl.className = 'text-success';
+                if (cantLimitWarning) cantLimitWarning.style.display = 'none';
+            }
+
+            if (cantResultsDiv) cantResultsDiv.style.display = 'block';
+        });
+    }
 
 });
 

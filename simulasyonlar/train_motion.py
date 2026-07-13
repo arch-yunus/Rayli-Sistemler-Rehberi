@@ -70,7 +70,17 @@ class Train:
         # requested_force pozitif ise çekiş (traction), negatif ise frenleme (braking)
         applied_force = 0.0
         if requested_force > 0:
-            applied_force = min(requested_force, self.max_traction_force)
+            # Cer Kuvveti Eğrisi (Traction Power Curve)
+            # Hız v_base (15 m/s veya 54 km/h) üzerine çıktığında maksimum çekiş gücü
+            # sabit güç prensibi (P = F * v) gereği hız ile ters orantılı olarak azalır.
+            v_base = 15.0  # m/s
+            v_current = max(0.1, self.velocity)
+            if v_current > v_base:
+                available_traction = (self.max_traction_force * v_base) / v_current
+            else:
+                available_traction = self.max_traction_force
+                
+            applied_force = min(requested_force, available_traction)
         elif requested_force < 0:
             applied_force = max(requested_force, -self.max_braking_force)
             
@@ -113,6 +123,7 @@ def run_simulation():
     print(f"{'Zaman (sn)':<10} | {'Hiz (km/h)':<10} | {'Mesafe (m)':<11} | {'Ivme (m/s2)':<11} | {'Direnc (kN)':<11}")
     print("-" * 65)
 
+    max_speed_ms = 0.0
     for t in range(total_time):
         # Gerçekçi sürüş senaryosu:
         # 0-30 sn: Tam güç ivmelenme (Acceleration)
@@ -131,6 +142,9 @@ def run_simulation():
         resistance = metro.get_resistance(metro.velocity, gradient, curve_radius)
         metro.update(dt, force, gradient, curve_radius)
         
+        if metro.velocity > max_speed_ms:
+            max_speed_ms = metro.velocity
+            
         velocity_kmh = metro.velocity * 3.6
         print(f"{t:<10d} | {velocity_kmh:<10.2f} | {metro.position:<11.1f} | {metro.acceleration:<11.3f} | {resistance/1000:<11.2f}")
         
@@ -142,6 +156,24 @@ def run_simulation():
             
     print("===========================================================")
     print("Simulasyon basariyla tamamlandi.")
+    
+    # UIC Acil Frenleme Mesafesi Analizi
+    # v_peak hızından acil frenleme yapılırsa duruş mesafesi hesabı:
+    # a_acil = (F_fren + R_direnc) / m
+    v_peak = max_speed_ms
+    r_peak = metro.get_resistance(v_peak, gradient, curve_radius)
+    a_braking = (metro.max_braking_force + r_peak) / metro.mass
+    braking_distance = (v_peak ** 2) / (2 * a_braking)
+    reaction_time = 1.5  # sn (Sürücü reaksiyon + sinyal iletim süresi)
+    total_braking_distance = braking_distance + (v_peak * reaction_time)
+    
+    print(f"\n[ANALIZ] Zirve Hizdan Acil Fren Analizi (Hiz: {v_peak*3.6:.1f} km/h):")
+    print(f" -> Maksimum Acil Fren Kuvveti: {metro.max_braking_force/1000:.1f} kN")
+    print(f" -> Zirve Hizdaki Toplam Direnc Kuvveti: {r_peak/1000:.1f} kN")
+    print(f" -> Hesaplanan Ortalama Yavaslama: {a_braking:.2f} m/s2")
+    print(f" -> Reaksiyon Suresindeki Yol ({reaction_time} sn): {v_peak * reaction_time:.1f} m")
+    print(f" -> Saf Frenleme Mesafesi: {braking_distance:.1f} m")
+    print(f" -> Toplam Acil Fren Durma Mesafesi: {total_braking_distance:.1f} m")
     print("===========================================================")
 
 if __name__ == "__main__":
